@@ -33,7 +33,7 @@ public class DocumentServiceImpl implements IDocumentService {
     }
     
     @Override
-    public Document updateDocument(Long id, Document updatedDocument) {
+    public Document updateDocument(Long id, Document updatedDocument) throws DocumentNotFoundException {
         Optional<Document> existingDocumentOpt = documentRepository.findById(id);
         if (existingDocumentOpt.isPresent()) {
             Document existingDocument = existingDocumentOpt.get();
@@ -47,7 +47,7 @@ public class DocumentServiceImpl implements IDocumentService {
     }
     
     @Override
-    public void deleteDocument(Long id) {
+    public void deleteDocument(Long id) throws DocumentNotFoundException{
         if (!documentRepository.existsById(id)) {
             throw new DocumentNotFoundException("Document not found with Id: " + id);
         }

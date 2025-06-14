@@ -33,7 +33,7 @@ public class CommentServiceImpl implements ICommentService {
     }
     
     @Override
-    public Comment updateComment(Long id, Comment updatedComment) {
+    public Comment updateComment(Long id, Comment updatedComment) throws CommentNotFoundException {
         Optional<Comment> existingCommentOpt = commentRepository.findById(id);
         if (existingCommentOpt.isPresent()) {
             Comment existingComment = existingCommentOpt.get();
@@ -45,7 +45,7 @@ public class CommentServiceImpl implements ICommentService {
     }
     
     @Override
-    public void deleteComment(Long id) {
+    public void deleteComment(Long id) throws CommentNotFoundException{
         if (!commentRepository.existsById(id)) {
             throw new CommentNotFoundException("Comment not found with Id: " + id);
         }

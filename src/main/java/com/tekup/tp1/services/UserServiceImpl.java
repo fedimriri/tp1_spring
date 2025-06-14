@@ -46,7 +46,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void deleteUser(Long id) throws UserNotFoundException {
         if (!userRepository.existsById(id)) {
             throw new UserNotFoundException("User not found with Id: " + id);
         }

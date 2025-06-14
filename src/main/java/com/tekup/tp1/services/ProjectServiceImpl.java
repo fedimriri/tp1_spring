@@ -33,7 +33,7 @@ public class ProjectServiceImpl implements IProjectService {
     }
     
     @Override
-    public Project updateProject(Long id, Project updatedProject) {
+    public Project updateProject(Long id, Project updatedProject) throws ProjectNotFoundException{
         Optional<Project> existingProjectOpt = projectRepository.findById(id);
         if (existingProjectOpt.isPresent()) {
             Project existingProject = existingProjectOpt.get();
@@ -49,7 +49,7 @@ public class ProjectServiceImpl implements IProjectService {
     }
     
     @Override
-    public void deleteProject(Long id) {
+    public void deleteProject(Long id) throws ProjectNotFoundException{
         if (!projectRepository.existsById(id)) {
             throw new ProjectNotFoundException("Project not found with Id: " + id);
         }

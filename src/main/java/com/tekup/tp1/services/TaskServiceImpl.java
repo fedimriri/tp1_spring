@@ -33,7 +33,7 @@ public class TaskServiceImpl implements ITaskService {
     }
     
     @Override
-    public Task updateTask(Long id, Task updatedTask) {
+    public Task updateTask(Long id, Task updatedTask) throws TaskNotFoundException {
         Optional<Task> existingTaskOpt = taskRepository.findById(id);
         if (existingTaskOpt.isPresent()) {
             Task existingTask = existingTaskOpt.get();
@@ -49,7 +49,7 @@ public class TaskServiceImpl implements ITaskService {
     }
     
     @Override
-    public void deleteTask(Long id) {
+    public void deleteTask(Long id) throws TaskNotFoundException{
         if (!taskRepository.existsById(id)) {
             throw new TaskNotFoundException("Task not found with Id: " + id);
         }

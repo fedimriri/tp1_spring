@@ -33,7 +33,7 @@ public class RoleServiceImpl implements IRoleService {
     }
     
     @Override
-    public Role updateRole(Long id, Role updatedRole) {
+    public Role updateRole(Long id, Role updatedRole) throws RoleNotFoundException {
         Optional<Role> existingRoleOpt = roleRepository.findById(id);
         if (existingRoleOpt.isPresent()) {
             Role existingRole = existingRoleOpt.get();
@@ -45,7 +45,7 @@ public class RoleServiceImpl implements IRoleService {
     }
     
     @Override
-    public void deleteRole(Long id) {
+    public void deleteRole(Long id) throws RoleNotFoundException{
         if (!roleRepository.existsById(id)) {
             throw new RoleNotFoundException("Role not found with Id: " + id);
         }
