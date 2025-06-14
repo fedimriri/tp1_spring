@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.tekup.tp1.entites.Comment;
+import com.tekup.tp1.exception.CommentNotFoundException;
 import com.tekup.tp1.repositories.CommentRepository;
 
 @Service

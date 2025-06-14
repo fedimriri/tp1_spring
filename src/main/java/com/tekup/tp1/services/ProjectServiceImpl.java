@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.tekup.tp1.entites.Project;
+import com.tekup.tp1.exception.ProjectNotFoundException;
 import com.tekup.tp1.repositories.ProjectRepository;
 
 @Service

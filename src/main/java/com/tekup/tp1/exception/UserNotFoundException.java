@@ -1,4 +1,4 @@
-package com.tekup.tp1.services;
+package com.tekup.tp1.exception;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(String message) {

@@ -1,4 +1,4 @@
-package com.tekup.tp1.services;
+package com.tekup.tp1.exception;
 
 public class TaskNotFoundException extends RuntimeException {
     public TaskNotFoundException(String message) {

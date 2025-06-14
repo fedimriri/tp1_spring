@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.tekup.tp1.entites.Document;
+import com.tekup.tp1.exception.DocumentNotFoundException;
 import com.tekup.tp1.repositories.DocumentRepository;
 
 @Service

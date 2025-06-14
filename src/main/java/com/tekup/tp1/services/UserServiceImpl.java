@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.tekup.tp1.entites.User;
+import com.tekup.tp1.exception.UserNotFoundException;
 import com.tekup.tp1.repositories.UserRepository;
 
 @Service
