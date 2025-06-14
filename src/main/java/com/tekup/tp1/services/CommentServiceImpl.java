@@ -51,4 +51,25 @@ public class CommentServiceImpl implements ICommentService {
         }
         commentRepository.deleteById(id);
     }
+
+    // Advanced methods implementation
+    @Override
+    public List<Comment> searchCommentsByKeyword(String keyword) {
+        return commentRepository.findByContentContaining(keyword);
+    }
+
+    @Override
+    public List<Comment> getCommentsByUser(Long userId) {
+        return commentRepository.findByUserId(userId);
+    }
+
+    @Override
+    public List<Comment> getCommentsByTaskSortedByDate(Long taskId) {
+        return commentRepository.findByTaskIdOrderByCreatedAtDesc(taskId);
+    }
+
+    @Override
+    public List<Comment> getAllCommentsSortedByDate() {
+        return commentRepository.findAllOrderByCreatedAtDesc();
+    }
 }

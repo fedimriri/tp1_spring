@@ -6,15 +6,24 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.tekup.tp1.entites.User;
+import com.tekup.tp1.entites.Role;
+import com.tekup.tp1.entites.Task;
 import com.tekup.tp1.exception.UserNotFoundException;
+import com.tekup.tp1.exception.RoleNotFoundException;
 import com.tekup.tp1.repositories.UserRepository;
+import com.tekup.tp1.repositories.RoleRepository;
+import com.tekup.tp1.repositories.TaskRepository;
 
 @Service
 public class UserServiceImpl implements IUserService {
     private UserRepository userRepository;
+    private RoleRepository roleRepository;
+    private TaskRepository taskRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, TaskRepository taskRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.taskRepository = taskRepository;
     }
 
     @Override
@@ -56,6 +65,25 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
+    }
+
+    @Override
+    public List<User> searchUsersByNameOrEmail(String searchTerm) {
+        return userRepository.findByUsernameContainingOrEmailContaining(searchTerm);
+    }
+
+    @Override
+    public List<User> getUsersByRole(Long roleId) {
+        Optional<Role> roleOpt = roleRepository.findById(roleId);
+        if (roleOpt.isPresent()) {
+            return userRepository.findByRole(roleOpt.get());
+        }
+        return List.of(); 
+    }
+
+    @Override
+    public List<Task> getTasksAssignedToUser(Long userId) {
+        return taskRepository.findTasksAssignedToUser(userId);
     }
 
 }

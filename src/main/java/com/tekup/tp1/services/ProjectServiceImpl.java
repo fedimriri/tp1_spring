@@ -1,5 +1,6 @@
 package com.tekup.tp1.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,5 +55,26 @@ public class ProjectServiceImpl implements IProjectService {
             throw new ProjectNotFoundException("Project not found with Id: " + id);
         }
         projectRepository.deleteById(id);
+    }
+
+    // Advanced methods implementation
+    @Override
+    public List<Project> getActiveProjects(String status) {
+        return projectRepository.findByStatus(status);
+    }
+
+    @Override
+    public List<Project> getUpcomingProjects() {
+        return projectRepository.findUpcomingProjects(LocalDate.now());
+    }
+
+    @Override
+    public List<Project> searchProjectsByKeyword(String keyword) {
+        return projectRepository.findByNameContainingOrDescriptionContaining(keyword);
+    }
+
+    @Override
+    public List<Project> getProjectsByUserParticipation(Long userId) {
+        return projectRepository.findProjectsByUserParticipation(userId);
     }
 }
