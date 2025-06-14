@@ -9,7 +9,6 @@ import com.tekup.tp1.entites.User;
 import com.tekup.tp1.entites.Role;
 import com.tekup.tp1.entites.Task;
 import com.tekup.tp1.exception.UserNotFoundException;
-import com.tekup.tp1.exception.RoleNotFoundException;
 import com.tekup.tp1.repositories.UserRepository;
 import com.tekup.tp1.repositories.RoleRepository;
 import com.tekup.tp1.repositories.TaskRepository;

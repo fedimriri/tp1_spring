@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.tekup.tp1.entites.User;
-import com.tekup.tp1.entites.Role;
 import com.tekup.tp1.entites.Task;
 import com.tekup.tp1.exception.UserNotFoundException;
 
