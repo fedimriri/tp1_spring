@@ -11,19 +11,9 @@ import com.tekup.tp1.entites.Project;
 import com.tekup.tp1.exception.ProjectNotFoundException;
 import com.tekup.tp1.services.IProjectService;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.ExampleObject;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
-
 @RestController
-@RequestMapping("/api/projects")
+@RequestMapping("/api/v0/projects")
 @CrossOrigin(origins = "*")
-@Tag(name = "Project Management", description = "APIs for managing projects including CRUD operations and advanced filtering")
 public class ProjectController {
     
     private final IProjectService projectService;
@@ -47,23 +37,8 @@ public class ProjectController {
                      .orElse(ResponseEntity.notFound().build());
     }
     
-    @Operation(summary = "Create a new project", description = "Create a new project with validation")
-    @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "Project created successfully",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Project.class))),
-        @ApiResponse(responseCode = "400", description = "Invalid project data")
-    })
     @PostMapping
-    public ResponseEntity<Project> createProject(
-            @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                description = "Project object to be created",
-                content = @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = Project.class),
-                    examples = @ExampleObject(value = "{\n  \"name\": \"New Project\",\n  \"description\": \"Project description\",\n  \"startDate\": \"2024-01-01\",\n  \"endDate\": \"2024-12-31\",\n  \"status\": \"ACTIVE\"\n}")
-                )
-            )
-            @RequestBody Project project) {
+    public ResponseEntity<Project> createProject(@RequestBody Project project) {
         try {
             Project createdProject = projectService.createProject(project);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdProject);
@@ -108,15 +83,8 @@ public class ProjectController {
         return ResponseEntity.ok(projects);
     }
     
-    @Operation(summary = "Search projects by keyword", description = "Search projects by name or description containing keyword")
-    @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Search completed successfully",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Project.class)))
-    })
     @GetMapping("/search")
-    public ResponseEntity<List<Project>> searchProjectsByKeyword(
-            @Parameter(description = "Keyword to search in project name or description", example = "web")
-            @RequestParam String keyword) {
+    public ResponseEntity<List<Project>> searchProjectsByKeyword(@RequestParam String keyword) {
         List<Project> projects = projectService.searchProjectsByKeyword(keyword);
         return ResponseEntity.ok(projects);
     }
